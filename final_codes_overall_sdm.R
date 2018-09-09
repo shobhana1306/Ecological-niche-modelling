@@ -1,4 +1,3 @@
-
 #The species occurrence data for "Mikania micrantha Kunth" was downloaded from GBIF.
 #############################
 #Occurrence points for South America
@@ -685,29 +684,3 @@ hist(colMeans(out_all), probability=TRUE, col="grey", xlab = "Predicted probabil
 plot(rcl) # Raster plot predicted using only selected variables in the logistic regression model.
 plot(rcl_all) # Raster plot predicted using all variables in the logistic regression model.
 
-##########################################################
-########################################################
-
-setwd("C:/Users/Ragini1/Documents/Shobhana'/My Project/R-Codes/mikania")
-library(maptools)
-india = readShapeSpatial("INDIA.shp")
-plot(india, lwd = 0.1)
-
-library(geojsonio)
-library(rmapshaper)
-library(sp)
-library(magrittr)
-
-india_states_json <- geojson_json(india, lat = "lat", lon = "long", group = "group", 
-                                  geometry = "polygon")
-india_states_dissolved = ms_dissolve(india_states_json)
-india_states_simplified = ms_simplify(india_states_dissolved, keep_shapes = TRUE, explode = TRUE)
-india = geojson_sp(india_states_simplified)
-plot(india)
-class(india)
-
-
-bioclim_data_india = crop(bioclim_data_world, extent(india))
-plot(bioclim_data_india,1)
-bioclim_data_india = crop(bioclim_data_india, india)
-plot(bioclim_data_india,1)
